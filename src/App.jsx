@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Layout from "./layout/Layout"
 import Home from "./pages/Home"
 import ProductDetail from "./pages/ProductDetail"
+import ProductListing from "./pages/ProductListing"
 
 
 
@@ -18,7 +19,11 @@ function App() {
         {
           path:"product/:id",
           element: <ProductDetail/>
-        }
+        },
+        {
+          path:"ProductListing",
+          element: <ProductListing/>
+        },
       ]
     }
   ])

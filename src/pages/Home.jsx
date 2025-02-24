@@ -7,6 +7,12 @@ function Home() {
   const [data, setData] = useState([]);
   const navigate = useNavigate(); // React Router navigation
 
+
+  const handleSubmitProducts = ()=>{
+    console.log("clicked")
+    navigate("/ProductListing")
+    
+  }
   useEffect(() => {
     axios
       .get("https://fakestoreapi.com/products")
@@ -26,15 +32,15 @@ function Home() {
 
   return (
     <div>
-      <img src={homeImg} alt="home" />
+      <img src={homeImg} alt="home" className="cursor-pointer" onClick={handleSubmitProducts} />
       <div className="flex flex-wrap gap-5">
         {data.map((item) => (
           <div
             key={item.id}
             onClick={() => handleClick(item.id)}
-            className="cursor-pointer max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition duration-300"
+            className="cursor-pointer flex flex-col justify-center  max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition duration-300"
           >
-            <img className="rounded-t-lg w-full h-48 object-cover" src={item.image} alt={item.title} />
+            <img className="rounded-t-lg w-48 h-48 object-fill "  src={item.image} alt={item.title} />
 
             <div className="p-5">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{item.title}</h5>

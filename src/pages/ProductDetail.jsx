@@ -22,12 +22,25 @@ function ProductDetail() {
 
 
   const handleAddtoCart = () => {
-    dispatch({ type: 'ADD_TO_CART', payload: product });
+    if (!product) return;
   
+    // Dispatch Redux action
+    dispatch({ type: "ADD_TO_CART", payload: { ...product, quantity: 1 } });
+  
+    // Update local storage
     setTimeout(() => {
       const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
-      localStorage.setItem("cart", JSON.stringify([...updatedCart, product]));
-    }, 500); 
+      
+      // Check if product already exists
+      const existingItemIndex = updatedCart.findIndex((item) => item.id === product.id);
+      if (existingItemIndex >= 0) {
+        updatedCart[existingItemIndex].quantity += 1;
+      } else {
+        updatedCart.push({ ...product, quantity: 1 });
+      }
+  
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }, 500);
   };
 
   if (!product) return <p>Loading...</p>;

@@ -4,21 +4,27 @@ import Login from "../pages/Login";
 import { useState, useEffect } from "react";
 import SearchBox from "../components/SearchBox";
 import { useSelector } from "react-redux";
+import CartPopup from "../pages/CartPopup";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [totalQty, setQty] = useState(0);
+  const cart = useSelector((state) => state.cart.item);
+  const [totalQty, setTotalQty] = useState(0);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
   };
-  const cart = useSelector((state) => state.cart.item);
 
   useEffect(() => {
-    let total = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
-    setQty(total);
+    if (Array.isArray(cart)) {
+      const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+      setTotalQty(total);
+    }
   }, [cart]);
 
   return (
@@ -47,10 +53,10 @@ function Header() {
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-lg py-2">
                   <Link
-                    to="/orders"
+                    to="/ProductListing"
                     className="block px-4 py-2 hover:bg-gray-100"
                   >
-                    My Orders
+                    Product Listing
                   </Link>
                   <Link
                     to="/saved"
@@ -79,11 +85,13 @@ function Header() {
         )}
         <div></div>
         <div>
-          <button className="text-white text-xl bg-green-700 hover:bg-blue-800 font-medium rounded-lg px-8 py-3">
+          <button  onClick={() => setIsPopupOpen(true)}
+          className="text-white text-xl bg-green-700 hover:bg-blue-800 font-medium rounded-lg px-8 py-3">
             My Cart <span>({totalQty})</span>
           </button>
         </div>
       </div>
+      <CartPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
     </div>
   );
 }
