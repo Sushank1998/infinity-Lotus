@@ -10,7 +10,7 @@ function SearchBox() {
 
     useEffect(() => {
         if (input.trim() === "") {
-            setData([]); // Clear results when input is empty
+            setData([]); 
             return;
         }
 
@@ -29,7 +29,7 @@ function SearchBox() {
                     setError("Failed to fetch results.");
                 })
                 .finally(() => setLoading(false));
-        }, 500); // Reduced delay for better UX
+        }, 500);
 
         return () => clearTimeout(timeoutId);
     }, [input]);

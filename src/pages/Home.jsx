@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 import homeImg from "../assets/homeimg.webp";
 import axios from "axios";
 
 function Home() {
   const [data, setData] = useState([]);
-  const navigate = useNavigate(); // React Router navigation
+  const navigate = useNavigate(); 
 
 
   const handleSubmitProducts = ()=>{
@@ -25,15 +25,15 @@ function Home() {
       });
   }, []);
 
-  // Navigate to product details or add-to-cart page
+
   const handleClick = (productId) => {
-    navigate(`/product/${productId}`); // Navigate to product page
+    navigate(`/product/${productId}`); 
   };
 
   return (
     <div>
       <img src={homeImg} alt="home" className="cursor-pointer" onClick={handleSubmitProducts} />
-      <div className="flex flex-wrap gap-5">
+      <div className=" flex flex-wrap justify-center gap-5">
         {data.map((item) => (
           <div
             key={item.id}

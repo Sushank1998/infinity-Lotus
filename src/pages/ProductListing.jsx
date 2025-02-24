@@ -14,16 +14,15 @@ function ProductListing() {
       .then((res) => {
         setProduct(res.data);
         setLoading(false); 
-        console.log("data",product);
-        console.log("data",res.data);
+        
       })
       .catch((err) => {
         console.error("Error fetching products:", err);
         setLoading(false); 
       });
-  },); 
+  },[]); 
   const handleClick = (productId) => {
-    navigate(`/product/${productId}`); // Navigate to product page
+    navigate(`/product/${productId}`);
   };
   return (
     <div className="container mx-auto px-4">
